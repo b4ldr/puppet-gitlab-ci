@@ -6,6 +6,7 @@ class gitlab_ci {
 
     include gitlab_ci::db
     include gitlab_ci::redis
+    include ruby
 
     user { 'gitlab_ci':
         ensure  => present,
