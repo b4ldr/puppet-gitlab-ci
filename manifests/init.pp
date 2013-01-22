@@ -5,14 +5,11 @@ class gitlab_ci {
     }
 
     include gitlab_ci::db
+    include gitlab_ci::redis
 
     user { 'gitlab_ci':
         ensure  => present,
         comment => 'GitLab CI',
         system  => true,
-    }
-
-    package { 'redis':
-        ensure  => installed,
     }
 }
