@@ -4,6 +4,8 @@ class gitlab_ci {
         include epel
     }
 
+    include gitlab_ci::db
+
     user { 'gitlab_ci':
         ensure  => present,
         comment => 'GitLab CI',
