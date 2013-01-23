@@ -48,6 +48,12 @@ class gitlab_ci(
             ensure  => installed,
         }
     }
+
+    if !defined(Package['git']) {
+        package {'git':
+            ensure  => installed,
+        }
+    }
     
     # TODO: Throws error that it can't find bundler. Have to manually install with gem install bundler as gitlab_ci user.
     # TODO: Remove rvm paths so that this works when ruby version changes
