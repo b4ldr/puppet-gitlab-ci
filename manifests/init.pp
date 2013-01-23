@@ -11,6 +11,7 @@ class gitlab_ci {
     rvm_system_ruby { 'ruby-1.9.3':
         ensure => 'present',
         default_use => true,
+        before  => Package['bundler'],
     }
 
     user { 'gitlab_ci':
@@ -34,7 +35,6 @@ class gitlab_ci {
     package { 'bundler':
         ensure      => installed,
         provider    => gem,
-        require     => Class['ruby'],
     }
 
     exec { 'bundle --without development test':
