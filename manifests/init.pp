@@ -99,4 +99,15 @@ class gitlab_ci(
             'unix:/home/gitlab_ci/gitlab-ci/tmp/sockets/gitlab-ci.socket',
         ]
     }
+
+    nginx::resource::vhost { "$fqdn":
+        ensure      => present,
+        www_root    => '/home/gitlab_ci/gitlab-ci/public',
+        try_files   => '$uri $uri/index.html $uri.html @gitlab_ci',
+    }
+
+    nginx::resource::location { "@gitlab_ci":
+        location    => '@gitlab_ci',
+        proxy       => 'http://gitlab_ci',
+    }
 }
