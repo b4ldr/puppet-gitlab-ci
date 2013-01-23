@@ -47,12 +47,14 @@ class gitlab_ci(
         command => 'gem install bundler',
         user    => 'gitlab_ci',
         require => Rvm_system_ruby['ruby-1.9.3'],
+        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
 
     exec { 'bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
         require => [Exec['install-bundler'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
+        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
 
     file { 'database.yml':
