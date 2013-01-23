@@ -75,4 +75,17 @@ class gitlab_ci(
         cwd     => '/home/gitlab_ci/gitlab-ci',
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
+
+    file { '/etc/init.d/gitlab_ci':
+        source  => '/home/gitlab_ci/gitlab-ci/lib/support/init.d/gitlab_ci',
+        owner   => 'root',
+        group   => 'root',
+        mode    => '755',
+        require => Vcsrepo['gitlab-ci'],
+    }
+
+    service { 'gitlab_ci':
+        ensure  => running,
+        enable  => true,
+    }
 }
