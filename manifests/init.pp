@@ -18,6 +18,8 @@ class gitlab_ci {
         require     => Rvm_system_ruby['ruby-1.9.3'],
     }
 
+    rvm::system_user { gitlab_ci: }
+
     user { 'gitlab_ci':
         ensure      => present,
         comment     => 'GitLab CI',
