@@ -63,6 +63,7 @@ class gitlab_ci(
         require => Vcsrepo['gitlab-ci'],
     }
 
+    # TODO: Only need to run these execs once
     exec { 'bundle exec rake db:setup RAILS_ENV=production':
         require => File['database.yml'],
         cwd     => '/home/gitlab_ci/gitlab-ci',
