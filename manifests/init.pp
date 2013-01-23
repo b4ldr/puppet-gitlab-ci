@@ -15,13 +15,26 @@ class gitlab_ci {
         managehome => true,
     }
 
-    vcsrepo { '/home/gitlab_ci/gitlab-ci':
+    vcsrepo { 'gitlab-ci':
         ensure      => latest,
+        path        => '/home/gitlab_ci/gitlab-ci',
         provider    => git,
         source      => 'https://github.com/gitlabhq/gitlab-ci.git',
         revision    => '2-0-stable',
         owner       => 'gitlab_ci',
         group       => 'gitlab_ci',
         require     => User['gitlab_ci'],
+    }
+
+    package { 'bundler':
+        ensure      => installed,
+        provider    => gem,
+        require     => Class['ruby'],
+    }
+
+    exec { 'bundle --without development test':
+        cwd     => '/home/gitlab_ci/gitlab-ci',
+        user    => 'gitlab_ci',
+        require => [Package['bundler'], Vcsrepo['gitlab-ci']],
     }
 }
