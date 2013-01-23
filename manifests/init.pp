@@ -109,5 +109,6 @@ class gitlab_ci(
     nginx::resource::location { "@gitlab_ci":
         location    => '@gitlab_ci',
         proxy       => 'http://gitlab_ci',
+        vhost       => "$fqdn",
     }
 }
