@@ -11,7 +11,6 @@ class gitlab_ci {
     rvm_system_ruby { 'ruby-1.9.3':
         ensure      => 'present',
         default_use => true,
-        before      => Package['bundler'],
     }
 
     rvm_gem { 'ruby-1.9.3/bundler': 
