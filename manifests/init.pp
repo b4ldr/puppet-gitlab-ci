@@ -92,4 +92,11 @@ class gitlab_ci(
         enable  => true,
         require => File['gitlab-ci-init'],
     }
+
+    nginx::resource::upstream { 'gitlab_ci':
+        ensure  => present,
+        members => [
+            'unix:/home/gitlab_ci/gitlab-ci/tmp/sockets/gitlab-ci.socket',
+        ]
+    }
 }
