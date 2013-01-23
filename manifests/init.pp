@@ -68,6 +68,7 @@ class gitlab_ci(
         require => File['database.yml'],
         cwd     => '/home/gitlab_ci/gitlab-ci',
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        before  => Service['gitlab_ci'],
     }
 
     exec { 'bundle exec whenever -w RAILS_ENV=production':
