@@ -38,6 +38,12 @@ class gitlab_ci {
         require     => User['gitlab_ci'],
     }
 
+    if !defined(Package['mysql-devel']) {
+        package {'mysql-devel':
+            ensure  => installed,
+        }
+    }
+
     # TODO: Remove hardcoded path, as this will break when ruby version changes
     # TODO: This exec also fails with "Could not find bundler (>= 0) amongst [] (Gem::LoadError)", but works when manually running it
     exec { 'bundle --without development test':
