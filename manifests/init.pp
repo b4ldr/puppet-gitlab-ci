@@ -68,4 +68,10 @@ class gitlab_ci(
         cwd     => '/home/gitlab_ci/gitlab-ci',
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
+
+    exec { 'bundle exec whenever -w RAILS_ENV=production':
+        require => Vcsrepo['gitlab-ci'],
+        cwd     => '/home/gitlab_ci/gitlab-ci',
+        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    }
 }
