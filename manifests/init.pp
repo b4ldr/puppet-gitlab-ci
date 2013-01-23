@@ -63,5 +63,6 @@ class gitlab_ci(
 
     exec { 'bundle exec rake db:setup RAILS_ENV=production':
         require => File['database.yml'],
+        cwd     => '/home/gitlab_ci/gitlab-ci',
     }
 }
