@@ -7,6 +7,7 @@ class gitlab_ci(
         include epel
     }
 
+    # TODO: Pass db params
     include gitlab_ci::db
     include gitlab_ci::redis
     include rvm
