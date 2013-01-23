@@ -36,7 +36,8 @@ class gitlab_ci {
         require     => User['gitlab_ci'],
     }
 
-    exec { 'bundle --without development test':
+    # TODO: Remove hardcoded path, as this will break when ruby version changes
+    exec { '/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin/bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
         require => [Rvm_gem['ruby-1.9.3/bundler'], Vcsrepo['gitlab-ci']],
