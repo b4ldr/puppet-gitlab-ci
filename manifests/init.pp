@@ -57,8 +57,13 @@ class gitlab_ci(
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
 
-    file { '/home/gitlab_ci/gitlab-ci/config/database.yml':
+    file { 'database.yml':
+        path    => '/home/gitlab_ci/gitlab-ci/config/database.yml',
         content => template('gitlab_ci/database.yml.erb'),
         require => Vcsrepo['gitlab-ci'],
+    }
+
+    exec { 'bundle exec rake db:setup RAILS_ENV=production':
+        require => File['database.yml'],
     }
 }
