@@ -15,6 +15,7 @@ class gitlab_ci {
 
     rvm_gem { 'ruby-1.9.3/bundler': 
         ensure      => present,
+        require     => Rvm_system_ruby['ruby-1.9.3'],
     }
 
     user { 'gitlab_ci':
