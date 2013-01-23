@@ -12,7 +12,7 @@ class gitlab_ci {
         ensure  => present,
         comment => 'GitLab CI',
         system  => true,
-        manage_home => true,
+        managehome => true,
     }
 
     vcsrepo { '/home/gitlab_ci/gitlab-ci':
