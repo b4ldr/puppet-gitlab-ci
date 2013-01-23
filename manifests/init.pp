@@ -6,7 +6,12 @@ class gitlab_ci {
 
     include gitlab_ci::db
     include gitlab_ci::redis
-    include ruby
+    include rvm
+
+    rvm_system_ruby { 'ruby-1.9.3':
+        ensure => 'present',
+        default_use => true,
+    }
 
     user { 'gitlab_ci':
         ensure  => present,
