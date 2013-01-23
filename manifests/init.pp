@@ -17,6 +17,11 @@ class gitlab_ci(
         default_use => true,
     }
 
+    rvm_gem { 'ruby-1.9.3/bundler': 
+        ensure      => present,
+        require     => Rvm_system_ruby['ruby-1.9.3'],
+    }
+
     rvm::system_user { gitlab_ci: }
 
     user { 'gitlab_ci':
@@ -42,18 +47,13 @@ class gitlab_ci(
             ensure  => installed,
         }
     }
-
-    exec { 'install-bundler':
-        command => 'gem install bundler',
-        user    => 'gitlab_ci',
-        require => Rvm_system_ruby['ruby-1.9.3'],
-        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
-    }
-
+    
+    # TODO: Throws error that it can't find bundler. Have to manually install with gem install bundler as gitlab_ci user.
+    # TODO: Remove rvm paths so that this works when ruby version changes
     exec { 'bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
-        require => [Exec['install-bundler'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
+        require => [Rvm_gem['ruby-1.9.3/bundler'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
     }
 
