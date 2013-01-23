@@ -10,8 +10,8 @@ class gitlab_ci(
     # TODO: Pass db params
     include gitlab_ci::db
     include gitlab_ci::redis
-    include rvm
     include nginx
+    include rvm
 
     rvm_system_ruby { 'ruby-1.9.3':
         ensure      => 'present',
