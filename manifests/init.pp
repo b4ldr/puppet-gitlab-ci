@@ -9,16 +9,16 @@ class gitlab_ci {
     include rvm
 
     rvm_system_ruby { 'ruby-1.9.3':
-        ensure => 'present',
+        ensure      => 'present',
         default_use => true,
-        before  => Package['bundler'],
+        before      => Package['bundler'],
     }
 
     user { 'gitlab_ci':
-        ensure  => present,
-        comment => 'GitLab CI',
-        system  => true,
-        managehome => true,
+        ensure      => present,
+        comment     => 'GitLab CI',
+        system      => true,
+        managehome  => true,
     }
 
     vcsrepo { 'gitlab-ci':
