@@ -1,5 +1,8 @@
 # Install gitlab-ci
-class gitlab_ci {
+class gitlab_ci(
+    $db_username    = 'gitlab_ci',
+    $db_password    = 'gitlab_ci',
+) {
     if $::osfamily == 'RedHat' and $::operatingsystem != 'Fedora' {
         include epel
     }
@@ -51,5 +54,10 @@ class gitlab_ci {
         user    => 'gitlab_ci',
         require => [Rvm_gem['ruby-1.9.3/bundler'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    }
+
+    file { '/home/gitlab_ci/gitlab-ci/config/database.yml':
+        content => template('gitlab_ci/database.yml.erb'),
+        require => Vcsrepo['gitlab-ci'],
     }
 }
