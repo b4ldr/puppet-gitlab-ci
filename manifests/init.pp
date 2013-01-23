@@ -12,5 +12,16 @@ class gitlab_ci {
         ensure  => present,
         comment => 'GitLab CI',
         system  => true,
+        manage_home => true,
+    }
+
+    vcsrepo { '/home/gitlab_ci/gitlab-ci':
+        ensure      => latest,
+        provider    => git,
+        source      => 'https://github.com/gitlabhq/gitlab-ci.git',
+        revision    => '2-0-stable',
+        owner       => 'gitlab_ci',
+        group       => 'gitlab_ci',
+        require     => User['gitlab_ci'],
     }
 }
