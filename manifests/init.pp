@@ -38,6 +38,6 @@ class gitlab_ci {
     exec { 'bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
-        require => [Package['bundler'], Vcsrepo['gitlab-ci']],
+        require => [Rvm_gem['ruby-1.9.3/bundler'], Vcsrepo['gitlab-ci']],
     }
 }
