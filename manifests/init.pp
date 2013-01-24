@@ -46,12 +46,12 @@ class gitlab_ci(
     
     # TODO: Throws error that it can't find bundler. Have to manually install with gem install bundler as gitlab_ci user.
     # TODO: Remove rvm paths so that this works when ruby version changes
-    # TODO: Only needs to run once
     exec { 'bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
         require => [Class['gitlab_ci::ruby'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        creates => '/home/gitlab_ci/gitlab-ci/.bundle/config'
     }
 
     file { 'database.yml':
