@@ -46,6 +46,7 @@ class gitlab_ci(
     
     # TODO: Throws error that it can't find bundler. Have to manually install with gem install bundler as gitlab_ci user.
     # TODO: Remove rvm paths so that this works when ruby version changes
+    # TODO: Only needs to run once
     exec { 'bundle --without development test':
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
@@ -59,18 +60,20 @@ class gitlab_ci(
         require => Vcsrepo['gitlab-ci'],
     }
 
-    # TODO: Only need to run these execs once
     exec { 'bundle exec rake db:setup RAILS_ENV=production':
-        require => File['database.yml'],
-        cwd     => '/home/gitlab_ci/gitlab-ci',
-        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
-        before  => Service['gitlab_ci'],
+        cwd         => '/home/gitlab_ci/gitlab-ci',
+        path        => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        before      => Service['gitlab_ci'],
+        refreshonly => true,
+        subscribe   => File['database.yml'],
     }
 
     exec { 'bundle exec whenever -w RAILS_ENV=production':
         require => Vcsrepo['gitlab-ci'],
         cwd     => '/home/gitlab_ci/gitlab-ci',
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        refreshonly => true,
+        subscribe   => File['/home/gitlab_ci/gitlab-ci/config/schedule.rb'],
     }
 
     file { 'gitlab-ci-init':
