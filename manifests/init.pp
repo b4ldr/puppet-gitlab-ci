@@ -68,12 +68,18 @@ class gitlab_ci(
         subscribe   => File['database.yml'],
     }
 
+    file { 'schedule.rb':
+        path    => '/home/gitlab_ci/gitlab-ci/config/schedule.rb',
+        ensure  => file,
+        require => Vcsrepo['gitlab-ci'],
+    }
+
     exec { 'bundle exec whenever -w RAILS_ENV=production':
         require => Vcsrepo['gitlab-ci'],
         cwd     => '/home/gitlab_ci/gitlab-ci',
         path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
         refreshonly => true,
-        subscribe   => File['/home/gitlab_ci/gitlab-ci/config/schedule.rb'],
+        subscribe   => File['schedule.rb'],
     }
 
     file { 'gitlab-ci-init':
