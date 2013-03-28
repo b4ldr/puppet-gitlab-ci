@@ -26,7 +26,7 @@ class gitlab_ci(
         path        => '/home/gitlab_ci/gitlab-ci',
         provider    => git,
         source      => 'https://github.com/gitlabhq/gitlab-ci.git',
-        revision    => '2-0-stable',
+        revision    => '2-1-stable',
         owner       => 'gitlab_ci',
         group       => 'gitlab_ci',
         require     => User['gitlab_ci'],
@@ -43,7 +43,7 @@ class gitlab_ci(
             ensure  => installed,
         }
     }
-    
+
     # TODO: Throws error that it can't find bundler. Have to manually install with gem install bundler as gitlab_ci user.
     # TODO: Remove rvm paths so that this works when ruby version changes
     exec { 'bundle --without development test':
