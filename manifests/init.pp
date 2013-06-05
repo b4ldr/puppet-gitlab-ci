@@ -26,7 +26,7 @@ class gitlab_ci(
         path        => '/home/gitlab_ci/gitlab-ci',
         provider    => git,
         source      => 'https://github.com/gitlabhq/gitlab-ci.git',
-        revision    => '2-1-stable',
+        revision    => '2-2-stable',
         owner       => 'gitlab_ci',
         group       => 'gitlab_ci',
         require     => User['gitlab_ci'],
