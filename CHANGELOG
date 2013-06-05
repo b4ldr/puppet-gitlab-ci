@@ -1,3 +1,5 @@
+2013-06-05 Lee Boynton <lee@lboynton.com> 0.0.3
+Updated to gitlab-ci 2.2.
 2013-03-29 Lee Boynton <lee@lboynton.com> 0.0.2
 Updated to gitlab-ci 2.1. Note there is a bug in the current version of the vcsrepo module, which stops it from changing branch. To update an existing install you must manually switch branch.
 2013-02-03 Lee Boynton <lee@lboynton.com> 0.0.1
