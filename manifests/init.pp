@@ -50,7 +50,7 @@ class gitlab_ci(
         cwd     => '/home/gitlab_ci/gitlab-ci',
         user    => 'gitlab_ci',
         require => [Class['gitlab_ci::ruby'], Vcsrepo['gitlab-ci'], Package['mysql-devel']],
-        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        path    => '/usr/local/rvm/gems/ruby-1.9.3-p429/bin:/usr/local/rvm/gems/ruby-1.9.3-p429@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p429/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
         creates => '/home/gitlab_ci/gitlab-ci/.bundle/config'
     }
 
@@ -62,7 +62,7 @@ class gitlab_ci(
 
     exec { 'bundle exec rake db:setup RAILS_ENV=production':
         cwd         => '/home/gitlab_ci/gitlab-ci',
-        path        => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        path        => '/usr/local/rvm/gems/ruby-1.9.3-p429/bin:/usr/local/rvm/gems/ruby-1.9.3-p429@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p429/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
         before      => Service['gitlab_ci'],
         refreshonly => true,
         subscribe   => File['database.yml'],
@@ -77,7 +77,7 @@ class gitlab_ci(
     exec { 'bundle exec whenever -w RAILS_ENV=production':
         require => Vcsrepo['gitlab-ci'],
         cwd     => '/home/gitlab_ci/gitlab-ci',
-        path    => '/usr/local/rvm/gems/ruby-1.9.3-p374/bin:/usr/local/rvm/gems/ruby-1.9.3-p374@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p374/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+        path    => '/usr/local/rvm/gems/ruby-1.9.3-p429/bin:/usr/local/rvm/gems/ruby-1.9.3-p429@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p429/bin:/usr/local/rvm/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
         refreshonly => true,
         subscribe   => File['schedule.rb'],
     }
