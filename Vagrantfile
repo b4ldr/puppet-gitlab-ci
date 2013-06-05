@@ -34,7 +34,8 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/srv/puppet/modules/gitlab_ci", :nfs => true
   config.vm.synced_folder "modules/epel", "/srv/puppet/modules/epel", :nfs => true
-  config.vm.synced_folder "modules/rvm", "/srv/puppet/modules/rvm", :nfs => true
+  config.vm.synced_folder "modules/ruby", "/srv/puppet/modules/ruby", :nfs => true
+  config.vm.synced_folder "modules/devtools", "/srv/puppet/modules/devtools", :nfs => true
   config.vm.synced_folder "modules/mysql", "/srv/puppet/modules/mysql", :nfs => true
   config.vm.synced_folder "modules/vcsrepo", "/srv/puppet/modules/vcsrepo", :nfs => true
   config.vm.synced_folder "modules/nginx", "/srv/puppet/modules/nginx", :nfs => true

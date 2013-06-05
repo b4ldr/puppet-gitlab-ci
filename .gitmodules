@@ -1,9 +1,6 @@
 [submodule "modules/epel"]
 	path = modules/epel
 	url = https://github.com/stahnma/puppet-module-epel.git
-[submodule "modules/rvm"]
-	path = modules/rvm
-	url = https://github.com/blt04/puppet-rvm
 [submodule "modules/nginx"]
 	path = modules/nginx
 	url = https://github.com/puppetlabs/puppetlabs-nginx
@@ -16,3 +13,9 @@
 [submodule "modules/stdlib"]
 	path = modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "modules/ruby"]
+	path = modules/ruby
+	url = https://github.com/Spredzy/puppet-ruby.git
+[submodule "modules/devtools"]
+	path = modules/devtools
+	url = https://github.com/Spredzy/puppet-devtools.git

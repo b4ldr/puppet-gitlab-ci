@@ -1,15 +1,6 @@
 class gitlab_ci::ruby{
-    include rvm
-
-    rvm_system_ruby { 'ruby-1.9.3':
-        ensure      => 'present',
-        default_use => true,
+    class {'::ruby':
+        provider => 'source',
+        version  =>  '1.9.3-p429',
     }
-
-    rvm_gem { 'ruby-1.9.3/bundler': 
-        ensure      => present,
-        require     => Rvm_system_ruby['ruby-1.9.3'],
-    }
-
-    rvm::system_user { gitlab_ci: }
 }
